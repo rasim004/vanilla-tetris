@@ -1,0 +1,183 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  height: 100svh;
+  background: linear-gradient(90deg, #395492, #0099c0, #3dd5a8);
+  font-family: Arial, Helvetica, sans-serif;
+  user-select: none;
+}
+
+/* Обёртка */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vh;
+}
+
+
+
+
+
+
+
+/* Игровое поле */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(10, auto);
+  grid-template-rows: repeat(20, auto);
+  padding: 0.6vh;
+  gap: 0.3vh;
+  border-radius: 0.6vh;
+  background-color: rgba(1, 8, 89, 0.5);
+}
+
+.grid > div {
+  --cell--size: min(3.8vh, 7vw);
+  height: var(--cell--size);
+  width: var(--cell--size);
+  border-radius: 0.3vh;
+  background-color: rgba(126, 150, 221, 0.2);
+}
+
+/* Цвета тетромино */
+.grid > div.I { background-color: #6be1ec; }
+.grid > div.J { background-color: #5eb0f3; }
+.grid > div.L { background-color: #f2c35b; }
+.grid > div.O { background-color: #f7e562; }
+.grid > div.S { background-color: #7be16b; }
+.grid > div.Z { background-color: #de5c6b; }
+.grid > div.T { background-color: #b276f3; }
+
+.grid > div.I,
+.grid > div.J,
+.grid > div.L,
+.grid > div.O,
+.grid > div.S,
+.grid > div.T,
+.grid > div.Z,
+.grid > div.ghost,
+.grid > div.sad {
+  box-shadow: inset 2px 2px 2px rgba(255, 255, 255, 0.2),
+              inset -2px -2px 2px rgba(1, 8, 89, 0.2);
+}
+
+.grid > div.ghost {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.grid > div.sad {
+  background-color: #f2c35b;
+  transition: background-color 0.5s, box-shadow 0.5s;
+}
+
+.grid > div.hide {
+  animation: hide 0.5s;
+}
+
+@keyframes hide {
+  0%   { transform: scale(0.8) rotate(30deg); }
+  45%  { transform: scale(0.8) rotate(-30deg); }
+  90%  { transform: scale(1) rotate(0); }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Верхняя панель */
+.topbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5vh 0.6vh;
+  background-color: rgba(1, 8, 89, 0.55);
+  border-radius: 0.6vh;
+  border: 1px solid rgba(100, 140, 255, 0.15);
+  backdrop-filter: blur(6px);
+}
+
+/* Счётчики — слева */
+.sidebar {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5vh;
+}
+
+/* Кнопки — справа */
+.topbar-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5vh;
+  align-items: center;
+}
+
+/* Кнопки — иконочные, квадратные */
+.restart,
+.pause,
+.ghost-toggle {
+  width: 50px;
+  height: 50px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(100, 140, 255, 0.25);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s, border-color 0.15s;
+  padding: 0;
+}
+
+.restart:hover,
+.pause:hover,
+.ghost-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(100, 140, 255, 0.5);
+}
+
+/* Счёт */
+.score-block {
+  background-color: rgba(1, 8, 89, 0.5);
+  border: 1px solid rgba(100, 140, 255, 0.2);
+  border-radius: 0.5vh;
+  padding: 0.3vh 1.2vh;
+  text-align: center;
+  min-width: 68px;
+}
+
+.score-label {
+  color: rgba(100, 160, 255, 0.7);
+  font-size: 0.9vh;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.2vh;
+}
+
+.score-value {
+  color: #fff;
+  font-size: 2.2vh;
+  font-weight: bold;
+}
