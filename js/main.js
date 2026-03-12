@@ -1,6 +1,6 @@
 import {Tetris} from "./tetris.js";
 import { convertPositionToIndex, PLAYFIELD_COLUMNS, SAD, PLAYFIELD_ROWS } from "./utilities.js";
-
+                                                                                                                                                                                                                                                                                                                                                                                                        
 let hammer;
 let requestId;
 let timeoutId;
@@ -30,13 +30,17 @@ function initKeydown() {
 }
 
 function onKeydown(event) {
-    if (isGameEnded) return;
+    if (event.key === 'Enter') {   // 👈 перенести СЮДА, выше isGameEnded
+        restartGame();
+        return;
+    }
+
+    if (isGameEnded) return;       // теперь блокирует только остальные клавиши
 
     if (event.key === 'Escape') {
         togglePause();
         return;
     }
-    
 
     if (isPaused) return;
 
@@ -209,9 +213,11 @@ function gameOver() {
     isGameEnded = true;
     stopLoop();
 
-    document.removeEventListener('keydown', onKeydown);
+    // document.removeEventListener('keydown', onKeydown);
     if (hammer) hammer.destroy();
     hammer = null;
+
+    ghostBtn.disabled = true; 
 
     gameOverAnimation();
 }
@@ -261,6 +267,8 @@ function restartAnimation() {
 function restartGame() {
     isPaused = false;
     pauseBtn.textContent = '⏸';
+
+    ghostBtn.disabled = false; 
 
     stopLoop();
     clearAllAnimationTimeouts();
