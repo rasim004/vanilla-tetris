@@ -30,16 +30,21 @@ function initKeydown() {
 }
 
 function onKeydown(event) {
-    if (event.key === 'Enter') {   // 👈 перенести СЮДА, выше isGameEnded
+    if (event.key === 'Enter') {  
         restartGame();
         return;
     }
 
-    if (isGameEnded) return;       // теперь блокирует только остальные клавиши
+    if (isGameEnded) return;       
 
     if (event.key === 'Escape') {
         togglePause();
         return;
+    }
+
+    if (event.key === 'Shift') {
+    toggleGhost();
+    return;
     }
 
     if (isPaused) return;
